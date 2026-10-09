@@ -145,6 +145,34 @@ Reports	Read	Yes	Yes
 Dashboard	Read	Yes	Yes
 
 
+## AI Production Analysis
+
+The API integrates with a local Ollama model to generate Turkish production summaries and improvement recommendations.
+
+### Configuration
+
+Configure the model in `.env`:
+
+```env
+OLLAMA_URL=http://localhost:11434
+OLLAMA_MODEL=qwen2.5:1.5b
+```
+
+Download the model:
+
+```powershell
+ollama pull qwen2.5:1.5b
+```
+
+### Endpoint
+
+`POST /api/ai/production-analysis`
+
+The endpoint requires JWT authentication and supports the `ADMIN` and `OPERATOR` roles.
+
+Production statistics and machine performance are calculated in Python before the results are sent to the model for interpretation.
+
+---
 API Endpoints
 Authentication
 POST /api/auth/login
@@ -402,4 +430,5 @@ Professional backend portfolio project demonstrating:
 - Automated testing
 - Layered architecture
 - Manufacturing-domain business logic
+
 
