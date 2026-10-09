@@ -1,4 +1,5 @@
-﻿from fastapi import FastAPI
+﻿from app.api.ai import router as ai_router
+from fastapi import FastAPI
 
 from app.api.auth import router as auth_router
 from app.api.dashboard import router as dashboard_router
@@ -34,3 +35,6 @@ def root():
         "version": "1.0.0",
         "status": "running",
     }
+
+app.include_router(ai_router)
+
