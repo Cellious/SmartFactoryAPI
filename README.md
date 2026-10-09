@@ -1,5 +1,6 @@
-# SmartFactory API
+﻿# SmartFactory API
 
+[![SmartFactory API Tests](https://github.com/Cellious/SmartFactoryAPI/actions/workflows/tests.yml/badge.svg)](https://github.com/Cellious/SmartFactoryAPI/actions/workflows/tests.yml)
 Production and Inventory Management Backend built with Python and FastAPI.
 
 SmartFactory API is a backend project designed for manufacturing environments to manage production records, machines, products, stock movements and customer orders through a secure REST API.
@@ -195,73 +196,73 @@ GET /api/dashboard/summary
 
 Project Structure
 SmartFactoryAPI/
-│
-├── app/
-│   ├── api/
-│   │   ├── auth.py
-│   │   ├── dashboard.py
-│   │   ├── machines.py
-│   │   ├── orders.py
-│   │   ├── production.py
-│   │   ├── products.py
-│   │   ├── reports.py
-│   │   └── stock.py
-│   │
-│   ├── auth/
-│   │   ├── dependencies.py
-│   │   └── security.py
-│   │
-│   ├── database/
-│   │   └── fake_db.py
-│   │
-│   ├── repositories/
-│   │   ├── machine_repository.py
-│   │   ├── order_repository.py
-│   │   ├── production_repository.py
-│   │   ├── product_repository.py
-│   │   └── user_repository.py
-│   │
-│   ├── schemas/
-│   │   ├── auth.py
-│   │   ├── dashboard.py
-│   │   ├── machine.py
-│   │   ├── order.py
-│   │   ├── production.py
-│   │   ├── product.py
-│   │   ├── report.py
-│   │   └── stock.py
-│   │
-│   ├── services/
-│   │   ├── auth_service.py
-│   │   ├── dashboard_service.py
-│   │   ├── order_service.py
-│   │   ├── production_service.py
-│   │   ├── report_service.py
-│   │   └── stock_service.py
-│   │
-│   └── main.py
-│
-├── tests/
-│   ├── conftest.py
-│   ├── test_auth.py
-│   ├── test_authorization.py
-│   ├── test_dashboard.py
-│   ├── test_dashboard_authorization.py
-│   ├── test_machines.py
-│   ├── test_machine_authorization.py
-│   ├── test_orders.py
-│   ├── test_order_authorization.py
-│   ├── test_production.py
-│   ├── test_products.py
-│   ├── test_reports.py
-│   ├── test_report_authorization.py
-│   ├── test_stock.py
-│   └── test_stock_authorization.py
-│
-├── .env.example
-├── .gitignore
-├── README.md
-└── requirements.txt
+â”‚
+â”œâ”€â”€ app/
+â”‚   â”œâ”€â”€ api/
+â”‚   â”‚   â”œâ”€â”€ auth.py
+â”‚   â”‚   â”œâ”€â”€ dashboard.py
+â”‚   â”‚   â”œâ”€â”€ machines.py
+â”‚   â”‚   â”œâ”€â”€ orders.py
+â”‚   â”‚   â”œâ”€â”€ production.py
+â”‚   â”‚   â”œâ”€â”€ products.py
+â”‚   â”‚   â”œâ”€â”€ reports.py
+â”‚   â”‚   â””â”€â”€ stock.py
+â”‚   â”‚
+â”‚   â”œâ”€â”€ auth/
+â”‚   â”‚   â”œâ”€â”€ dependencies.py
+â”‚   â”‚   â””â”€â”€ security.py
+â”‚   â”‚
+â”‚   â”œâ”€â”€ database/
+â”‚   â”‚   â””â”€â”€ fake_db.py
+â”‚   â”‚
+â”‚   â”œâ”€â”€ repositories/
+â”‚   â”‚   â”œâ”€â”€ machine_repository.py
+â”‚   â”‚   â”œâ”€â”€ order_repository.py
+â”‚   â”‚   â”œâ”€â”€ production_repository.py
+â”‚   â”‚   â”œâ”€â”€ product_repository.py
+â”‚   â”‚   â””â”€â”€ user_repository.py
+â”‚   â”‚
+â”‚   â”œâ”€â”€ schemas/
+â”‚   â”‚   â”œâ”€â”€ auth.py
+â”‚   â”‚   â”œâ”€â”€ dashboard.py
+â”‚   â”‚   â”œâ”€â”€ machine.py
+â”‚   â”‚   â”œâ”€â”€ order.py
+â”‚   â”‚   â”œâ”€â”€ production.py
+â”‚   â”‚   â”œâ”€â”€ product.py
+â”‚   â”‚   â”œâ”€â”€ report.py
+â”‚   â”‚   â””â”€â”€ stock.py
+â”‚   â”‚
+â”‚   â”œâ”€â”€ services/
+â”‚   â”‚   â”œâ”€â”€ auth_service.py
+â”‚   â”‚   â”œâ”€â”€ dashboard_service.py
+â”‚   â”‚   â”œâ”€â”€ order_service.py
+â”‚   â”‚   â”œâ”€â”€ production_service.py
+â”‚   â”‚   â”œâ”€â”€ report_service.py
+â”‚   â”‚   â””â”€â”€ stock_service.py
+â”‚   â”‚
+â”‚   â””â”€â”€ main.py
+â”‚
+â”œâ”€â”€ tests/
+â”‚   â”œâ”€â”€ conftest.py
+â”‚   â”œâ”€â”€ test_auth.py
+â”‚   â”œâ”€â”€ test_authorization.py
+â”‚   â”œâ”€â”€ test_dashboard.py
+â”‚   â”œâ”€â”€ test_dashboard_authorization.py
+â”‚   â”œâ”€â”€ test_machines.py
+â”‚   â”œâ”€â”€ test_machine_authorization.py
+â”‚   â”œâ”€â”€ test_orders.py
+â”‚   â”œâ”€â”€ test_order_authorization.py
+â”‚   â”œâ”€â”€ test_production.py
+â”‚   â”œâ”€â”€ test_products.py
+â”‚   â”œâ”€â”€ test_reports.py
+â”‚   â”œâ”€â”€ test_report_authorization.py
+â”‚   â”œâ”€â”€ test_stock.py
+â”‚   â””â”€â”€ test_stock_authorization.py
+â”‚
+â”œâ”€â”€ .env.example
+â”œâ”€â”€ .gitignore
+â”œâ”€â”€ README.md
+â””â”€â”€ requirements.txt
 
 Installation
 Clone the repository:
@@ -401,3 +402,4 @@ Professional backend portfolio project demonstrating:
 - Automated testing
 - Layered architecture
 - Manufacturing-domain business logic
+
