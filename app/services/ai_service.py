@@ -1,4 +1,5 @@
-﻿import os
+﻿import logging
+import os
 
 import httpx
 
@@ -9,6 +10,8 @@ from app.services.report_service import (
     calculate_machine_performance,
 )
 
+
+logger = logging.getLogger(__name__)
 
 OLLAMA_URL = os.getenv(
     "OLLAMA_URL",
@@ -43,41 +46,54 @@ def analyze_production():
     analysis_data = build_production_analysis()
 
     prompt = f"""
-Sen bir üretim analisti asistanısın.
-Yalnızca Türkçe cevap ver.
-Sadece aşağıdaki verileri kullan; veri uydurma.
-Sayısal hesaplamaları yeniden yapmaya çalışma.
-En fazla üç somut ve uygulanabilir öneri sun.
-Fire oranı yüksek bir makine varsa bunu belirt.
-Veri yetersizse açıkça ifade et.
+Türkçe konuşan bir fabrika üretim analistisin.
+Aşağıdaki hazır hesaplanmış verileri yorumla.
+Sayıları tekrar hesaplama, değiştirme veya tahmin etme.
+Verilmeyen nedenleri gerçekmiş gibi sunma.
+Yalnızca Türkçe yaz. En fazla 120 kelime kullan.
 
-Üretim istatistikleri:
-{analysis_data["statistics"]}
+VERİLER:
+Genel istatistikler: {analysis_data["statistics"]}
+Makine performansları: {analysis_data["machines"]}
+En yüksek fireli makine: {analysis_data["highest_scrap_machine"]}
 
-Makine performansları:
-{analysis_data["machines"]}
+Şu üç başlığı sırayla ve kısa şekilde tamamla:
 
-Fire oranı en yüksek makine:
-{analysis_data["highest_scrap_machine"]}
+### Genel Değerlendirme
+Toplam üretimi, toplam fire miktarını ve verilen fire oranını belirt.
 
-Türkçe bir yönetici özeti ve iyileştirme önerileri oluştur.
+### Makine Performansı
+En yüksek fire oranlı makineyi, üretimini ve fire oranını belirt.
+Diğer makinelerle kısa karşılaştırma yap.
+
+### İyileştirme Önerileri
+En fazla iki kısa öneri ver.
+Makine ayarları, hammadde koşulları veya üretim kayıtlarının
+kontrol edilmesini önerebilirsin.
+
+Raporu eksiksiz tamamla. Verilerdeki sayıları aynen koru.
 """
 
     try:
         response = httpx.post(
-        f"{OLLAMA_URL}/api/generate",
-        json={
-            "model": OLLAMA_MODEL,
-            "prompt": prompt,
-            "stream": False,
-            "keep_alive": "10m",
-            "options": {
-                "temperature": 0,
-                "num_predict": 120,
-                "num_ctx": 2048,
+            f"{OLLAMA_URL}/api/generate",
+            json={
+                "model": OLLAMA_MODEL,
+                "prompt": prompt,
+                "stream": False,
+                "keep_alive": "10m",
+                "options": {
+                    "temperature": 0,
+                    "num_predict": 100,
+                    "num_ctx": 2048,
+                },
             },
-        },
-        timeout=180.0,
+            timeout=180.0,
+        )
+        logger.info(
+            "Ollama yanıtı alındı: model=%s, status=%s",
+            OLLAMA_MODEL,
+            response.status_code,
         )
         response.raise_for_status()
         result = response.json()
@@ -104,6 +120,12 @@ Türkçe bir yönetici özeti ve iyileştirme önerileri oluştur.
             "Ollama boş bir analiz yanıtı döndürdü."
         )
 
+    if result.get("done_reason") == "length":
+        logger.warning(
+            "Ollama analizi token sınırına ulaştı: model=%s",
+            OLLAMA_MODEL,
+        )
+
     return {
         "model": OLLAMA_MODEL,
         "statistics": analysis_data["statistics"],
@@ -113,4 +135,3 @@ Türkçe bir yönetici özeti ve iyileştirme önerileri oluştur.
         ],
         "analysis": answer,
     }
-

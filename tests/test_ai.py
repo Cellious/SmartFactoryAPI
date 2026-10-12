@@ -30,6 +30,8 @@ def test_build_production_analysis_includes_all_machines():
 
 def test_analyze_production_returns_model_analysis(monkeypatch):
     class FakeResponse:
+        status_code = 200
+
         def raise_for_status(self):
             pass
 
@@ -81,6 +83,8 @@ def test_analyze_production_handles_ollama_connection_error(monkeypatch):
 
 def test_analyze_production_rejects_empty_response(monkeypatch):
     class FakeResponse:
+        status_code = 200
+
         def raise_for_status(self):
             pass
 

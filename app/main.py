@@ -1,4 +1,5 @@
 ﻿from app.api.ai import router as ai_router
+from app.api.logs import router as logs_router
 from fastapi import FastAPI
 
 from app.api.auth import router as auth_router
@@ -37,4 +38,7 @@ def root():
     }
 
 app.include_router(ai_router)
+
+
+app.include_router(logs_router)
 
